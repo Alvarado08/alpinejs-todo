@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <title>To-Do Alpinejs</title>
+</head>
+<body>
+    <main class="container mx-auto p-5">
+        <h1 class="text-3xl font-bold mb-3">My Todo's</h1>
+        <div x-data="{todos:[], userInput:''}">
+            <div class="mb-3 font-bold">
+                <span x-text="todos.filter(todo => todo.completed).length"></span>/<span x-text="todos.length"></span> todo's completed
+            </div>
+            <form x-on:submit.prevent>
+                <input x-model="userInput" placeholder="Enter a Todo..." class="p-2 border rounded" type="text">
+                <button @click="userInput.trim().length && todos.push({name: userInput, completed: false}); userInput=''" class="rounded py-2 px-3 bg-slate-600 text-white">Create Todo</button>
+                <button @click="todos = []" x-show="todos.length" class="rounded py-2 px-3 bg-red-500 text-white">Clear List</button>
+            </form>
+            <template x-for="todo in todos">
+                <div class="flex items-center gap-3 my-3">
+                    <input type="checkbox" x-model="todo.completed">
+                    <span class="font-bold" x-text="todo.name" :class="todo.completed && 'line-through'"></span>
+                    <button @click="todos = todos.filter(currTodo => currTodo !== todo)">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="red" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M4 7l16 0"></path>
+                            <path d="M10 11l0 6"></path>
+                            <path d="M14 11l0 6"></path>
+                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                        </svg>
+                    </button>
+                </div>
+            </template>
+        </div>
+    </main>
+</body>
+</html>

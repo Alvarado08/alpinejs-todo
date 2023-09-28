@@ -1,0 +1,8 @@
+Todo App
+Users can:
+- create a todo 
+- see list of todos
+- delete todo
+- mark todo as complete
+- clear list of todos 
+- see number of todos and todos completed
